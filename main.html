@@ -1,43 +1,38 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="./styles.css">
-</head>
- <style>
+  <meta charset="UTF-8" />
+  <title>Shopping Cart</title>
+  <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 30px;
+      font-family: sans-serif;
+      padding: 30px;
+    }
+    input, button {
+      margin: 5px;
+      padding: 8px;
     }
     table {
-      width: 100%;
+      margin-top: 20px;
       border-collapse: collapse;
-      margin-top: 15px;
+      width: 100%;
     }
     th, td {
-      padding: 10px;
       border: 1px solid #ccc;
+      padding: 10px;
       text-align: left;
     }
-    input {
-      margin: 5px;
-      padding: 5px;
-    }
-    button {
-      padding: 6px 12px;
-    }
   </style>
+</head>
 <body>
-	<!-- the entire body must be written by student -->
-	 <h1>Shopping Cart</h1>
+
+  <h1>Shopping Cart</h1>
 
   <label for="item-name-input">Item Name:</label>
-  <input type="text" id="item-name-input" aria-label="Item Name" />
-  
-<label for="item-qty-input">Quantity:</label>
-<input type="number" id="item-qty-input" aria-label="Item Quantity" min="1" />
+  <input type="text" id="item-name-input" aria-label="Item Name" placeholder="e.g. Apple" />
 
+  <label for="item-price-input">Price:</label>
+  <input type="number" id="item-price-input" aria-label="Item Price" placeholder="e.g. 5.99" min="0" step="0.01" />
 
   <button id="add" aria-label="Add item to list">Add</button>
 
@@ -49,29 +44,18 @@
       </tr>
     </thead>
     <tbody id="cart-body" role="rowgroup">
-      <!-- Items will be added here -->
+      <!-- Items go here -->
     </tbody>
   </table>
 
   <h3 id="total" role="contentinfo">Grand Total: $0.00</h3>
 
   <script>
-    const itemInput = document.getElementById("item-name-input");
-   
-    const addButton = document.getElementById("add");
-    const cartBody = document.getElementById("cart-body");
-    const totalDisplay = document.getElementById("total");
-const qtyInput = document.getElementById("item-qty-input");
-// ...
-const quantity = parseInt(qtyInput.value);
-
-if (!isValidInput(item, price) || isNaN(quantity) || quantity <= 0) {
-  alert("Please enter valid name, quantity (>0), and price.");
-  return;
-}
-
-const totalItemPrice = price * quantity;
-grandTotal += totalItemPrice;
+    const itemInput = document.getElementById('item-name-input');
+    const priceInput = document.getElementById('item-price-input');
+    const addButton = document.getElementById('add');
+    const cartBody = document.getElementById('cart-body');
+    const totalDisplay = document.getElementById('total');
 
     let grandTotal = 0;
 
@@ -80,28 +64,28 @@ grandTotal += totalItemPrice;
     }
 
     function isValidInput(item, price) {
-      return item.trim() !== "" && !isNaN(price) && Number(price) > 0;
+      return item.trim() !== '' && !isNaN(price) && Number(price) > 0;
     }
 
-    addButton.addEventListener("click", () => {
+    addButton.addEventListener('click', () => {
       const item = itemInput.value.trim();
       const price = parseFloat(priceInput.value);
 
       if (!isValidInput(item, price)) {
-        alert("Please enter a valid item name and price greater than 0.");
+        alert('Please enter a valid item name and price greater than 0.');
         return;
       }
 
-      const row = document.createElement("tr");
-      row.setAttribute("role", "row");
+      const row = document.createElement('tr');
+      row.setAttribute('role', 'row');
 
-      const itemCell = document.createElement("td");
+      const itemCell = document.createElement('td');
       itemCell.textContent = item;
-      itemCell.setAttribute("headers", "item");
+      itemCell.setAttribute('headers', 'item');
 
-      const priceCell = document.createElement("td");
+      const priceCell = document.createElement('td');
       priceCell.textContent = `$${price.toFixed(2)}`;
-      priceCell.setAttribute("headers", "price");
+      priceCell.setAttribute('headers', 'price');
 
       row.appendChild(itemCell);
       row.appendChild(priceCell);
@@ -110,15 +94,13 @@ grandTotal += totalItemPrice;
       grandTotal += price;
       updateTotal();
 
-      itemInput.value = "";
-      priceInput.value = "";
+      itemInput.value = '';
+      priceInput.value = '';
       itemInput.focus();
     });
 
-    // Initial state: empty body, total 0
-    updateTotal();
+    updateTotal(); // initial display
   </script>
 
 </body>
-
 </html>
